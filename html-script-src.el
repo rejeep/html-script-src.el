@@ -68,8 +68,12 @@
   "Inserts script tag for desired JavaScript framework."
   (interactive)
   (let* ((frameworks (html-script-src-frameworks))
-         (framework (funcall html-script-src-completion-fn "Framework: " (mapcar 'car frameworks) nil t)))
+         (framework (html-script-src-completing-read (mapcar 'car frameworks))))
     (html-script-src-insert-tag (cdr (assoc framework frameworks)))))
+
+(defun html-script-src-completing-read (frameworks)
+  "Reads a JavaScript framework from FRAMEWORKS in the minibuffer, with completion."
+  (funcall html-script-src-completion-fn "Framework: " frameworks nil t))
 
 (defun html-script-src-frameworks ()
   "Returns a list of all JavaScript names and URL."
