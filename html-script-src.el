@@ -104,8 +104,8 @@
   "Inserts a tag for URL."
   (let ((format
          (if (eq major-mode 'haml-mode)
-             (html-script-src-insert-haml-format)
-           (html-script-src-insert-html-format))))
+             html-script-src-haml-script-format
+           html-script-src-html-script-format)))
     (insert (format format url))))
 
 
