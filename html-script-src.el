@@ -81,7 +81,7 @@
   "Parses the Script Src website and returns all JavaScript frameworks as a list."
   (goto-char (point-min))
   (let ((frameworks))
-    (while (re-search-forward "<textarea id=\"fe_text_\\(.+\\)\".*class=\"fetext\".*>\\(.+\\)</textarea>" nil t)
+    (while (re-search-forward html-script-src-re nil t)
       (add-to-list 'frameworks
                    (cons
                     (match-string-no-properties 1)
