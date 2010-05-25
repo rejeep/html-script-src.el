@@ -45,7 +45,7 @@
 
 
 (defvar html-script-src-completion-fn
-  (if (fboundp 'ido-mode) 'ido-completing-read 'completing-read)
+  (if ido-mode 'ido-completing-read 'completing-read)
   "Function to use for framework completion.")
 
 (defconst html-script-src-re
