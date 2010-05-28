@@ -63,13 +63,22 @@
   "<script src='%s' type='text/javascript' charset='utf-8'></script>"
   "Format string for html script tag.")
 
+(defvar html-script-src-cache nil
+  "Caches all framework names and url.")
 
-(defun html-script-src ()
-  "Inserts script tag for desired JavaScript framework."
-  (interactive)
+
+(defun html-script-src (arg)
+  "Inserts script tag for desired JavaScript framework.
+With prefix argument, cache will be omitted."
+  (interactive "P")
+  (if arg (html-script-src-clear-cache))
   (let* ((frameworks (html-script-src-frameworks))
          (framework (html-script-src-completing-read (mapcar 'car frameworks))))
     (html-script-src-insert-tag (cdr (assoc framework frameworks)))))
+
+(defun html-script-src-clear-cache ()
+  "Clears cache."
+  (setq html-script-src-cache nil))
 
 (defun html-script-src-completing-read (frameworks)
   "Reads a JavaScript framework from FRAMEWORKS in the minibuffer, with completion."
@@ -77,9 +86,10 @@
 
 (defun html-script-src-frameworks ()
   "Returns a list of all JavaScript names and URL."
-  (let ((buffer (html-script-src-fetch)))
-    (with-current-buffer buffer
-      (html-script-src-parse))))
+  (or html-script-src-cache
+      (let ((buffer (html-script-src-fetch)))
+        (with-current-buffer buffer
+          (setq html-script-src-cache (html-script-src-parse))))))
 
 (defun html-script-src-parse ()
   "Parses the Script Src website and returns all JavaScript frameworks as a list."
