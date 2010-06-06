@@ -67,6 +67,7 @@
   "Caches all framework names and url.")
 
 
+;;;###autoload
 (defun html-script-src (arg)
   "Inserts script tag for desired JavaScript framework.
 With prefix argument, cache will be omitted."
