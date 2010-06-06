@@ -25,7 +25,3 @@
 (Before
  (setq html-script-src-fetched nil)
  )
-
-(After
- (print html-script-src-fetched)
- )
