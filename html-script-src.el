@@ -30,7 +30,7 @@
 ;;; Commentary:
 
 ;; Inserts a script tag for HTML and HAML documents with a URL to a
-;; given JavaScript framework taken from: http://scriptsrc.net/
+;; given JavaScript library taken from: http://scriptsrc.net/
 
 ;; To use this, make sure that this file is in Emacs load-path
 ;; (add-to-list 'load-path "/path/to/directory/or/file")
@@ -46,11 +46,11 @@
 
 (defvar html-script-src-completion-fn
   (if ido-mode 'ido-completing-read 'completing-read)
-  "Function to use for framework completion.")
+  "Function to use for library completion.")
 
 (defconst html-script-src-re
   "<textarea id=\"fe_text_\\(.+\\)\".*class=\"fetext\".*>\\(.+\\)</textarea>"
-  "Regular expression matching a JavaScript framework in the HTML source.")
+  "Regular expression matching a JavaScript library in the HTML source.")
 
 (defconst html-script-src-scriptsrc-url "http://scriptsrc.net/"
   "URL to Script Src website.")
@@ -64,28 +64,28 @@
   "Format string for html script tag.")
 
 (defvar html-script-src-cache nil
-  "Caches all framework names and url.")
+  "Caches all library names and url.")
 
 
 ;;;###autoload
 (defun html-script-src (arg)
-  "Inserts script tag for desired JavaScript framework.
+  "Inserts script tag for desired JavaScript library.
 With prefix argument, cache will be omitted."
   (interactive "P")
   (if arg (html-script-src-clear-cache))
-  (let* ((frameworks (html-script-src-frameworks))
-         (framework (html-script-src-completing-read (mapcar 'car frameworks))))
-    (html-script-src-insert-tag (cdr (assoc framework frameworks)))))
+  (let* ((libraries (html-script-src-libraries))
+         (library (html-script-src-completing-read (mapcar 'car libraries))))
+    (html-script-src-insert-tag (cdr (assoc library libraries)))))
 
 (defun html-script-src-clear-cache ()
   "Clears cache."
   (setq html-script-src-cache nil))
 
-(defun html-script-src-completing-read (frameworks)
-  "Reads a JavaScript framework from FRAMEWORKS in the minibuffer, with completion."
-  (funcall html-script-src-completion-fn "Framework: " frameworks nil t))
+(defun html-script-src-completing-read (libraries)
+  "Reads a JavaScript library from LIBRARIES in the minibuffer, with completion."
+  (funcall html-script-src-completion-fn "Library: " libraries nil t))
 
-(defun html-script-src-frameworks ()
+(defun html-script-src-libraries ()
   "Returns a list of all JavaScript names and URL."
   (or html-script-src-cache
       (let ((buffer (html-script-src-fetch)))
@@ -95,15 +95,15 @@ With prefix argument, cache will be omitted."
   html-script-src-cache)
 
 (defun html-script-src-parse ()
-  "Parses the Script Src website and returns all JavaScript frameworks as a list."
+  "Parses the Script Src website and returns all JavaScript libraries as a list."
   (goto-char (point-min))
-  (let ((frameworks))
+  (let ((libraries))
     (while (re-search-forward html-script-src-re nil t)
-      (add-to-list 'frameworks
+      (add-to-list 'libraries
                    (cons
                     (match-string-no-properties 1)
                     (match-string-no-properties 2))))
-    frameworks))
+    libraries))
 
 (defun html-script-src-fetch ()
   "Fetches the HTML for the Script Src website."
