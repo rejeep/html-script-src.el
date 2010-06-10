@@ -16,9 +16,4 @@
     (switch-to-buffer (get-buffer-create buffer))
     (erase-buffer)
     (insert-file-contents-literally (expand-file-name "scriptsrc.html" "features"))
-    (setq html-script-src-fetched t)
     buffer))
-
-(Before
- (setq html-script-src-fetched nil)
- )
