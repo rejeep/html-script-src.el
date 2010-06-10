@@ -90,7 +90,9 @@ With prefix argument, cache will be omitted."
   (or html-script-src-cache
       (let ((buffer (html-script-src-fetch)))
         (with-current-buffer buffer
-          (setq html-script-src-cache (html-script-src-parse))))))
+          (setq html-script-src-cache (html-script-src-parse)))
+        (kill-buffer buffer)))
+  html-script-src-cache)
 
 (defun html-script-src-parse ()
   "Parses the Script Src website and returns all JavaScript frameworks as a list."
