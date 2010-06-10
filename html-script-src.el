@@ -115,11 +115,18 @@ With prefix argument, cache will be omitted."
 
 (defun html-script-src-insert-tag (url)
   "Inserts a tag for URL."
-  (let ((format
-         (if (eq major-mode 'haml-mode)
-             html-script-src-haml-script-format
-           html-script-src-html-script-format)))
-    (insert (format format url))))
+  (insert (html-script-src-tag url)))
+
+(defun html-script-src-tag (url)
+  "Returns a formatted tag string with URL."
+  (let ((format (html-script-src-tag-format)))
+    (format format url)))
+
+(defun html-script-src-tag-format ()
+  "Returns tag format depending on mode."
+  (if (eq major-mode 'haml-mode)
+      html-script-src-haml-script-format
+    html-script-src-html-script-format))
 
 
 (provide 'html-script-src)
