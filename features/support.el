@@ -8,19 +8,16 @@
 (require 'html-script-src)
 (require 'espuds)
 
-;; Advice `html-script-src-fetch' so that it does not actually fetch
+;; Stub `html-script-src-fetch' so that it does not actually fetch
 ;; anything, but switch to a buffer and insert a "fake"
 ;; http://scriptsrc.net HTML page.
-(defvar html-script-src-fetched nil)
-(defadvice html-script-src-fetch (around fetch-around)
+(defun html-script-src-fetch ()
   (let ((buffer "*html-script-src*"))
     (switch-to-buffer (get-buffer-create buffer))
     (erase-buffer)
     (insert-file-contents-literally (expand-file-name "scriptsrc.html" "features"))
     (setq html-script-src-fetched t)
     buffer))
-(ad-activate 'html-script-src-fetch)
-
 
 (Before
  (setq html-script-src-fetched nil)
