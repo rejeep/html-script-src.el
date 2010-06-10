@@ -16,7 +16,6 @@ Feature: HTML Script Src
     And I type "moo"
     And I press "RET"
     And I execute the action chain
-    When I am in buffer "*temp-buffer*"
     Then I should see:
       """
       <script src='http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js' type='text/javascript' charset='utf-8'></script>
