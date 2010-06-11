@@ -32,13 +32,14 @@
 ;; Inserts a script tag for HTML and HAML documents with a URL to a
 ;; given JavaScript library taken from: http://scriptsrc.net/
 
-;; To use this, make sure that this file is in Emacs load-path
-;; (add-to-list 'load-path "/path/to/directory/or/file")
+;; To use this, make sure that this file is in Emacs load-path:
+;;   (add-to-list 'load-path "/path/to/directory/or/file")
 ;;
-;; Then require it
-;; (require 'html-script-src)
+;; Require it:
+;;   (require 'html-script-src)
 ;;
-;; Then in your HTML or HAML file, run the function `html-script-src'.
+;; Then in your HTML or HAML file, interactively call the function
+;; `html-script-src'.
 
 
 ;;; Code:
@@ -47,6 +48,10 @@
 (defvar html-script-src-completion-fn
   (if ido-mode 'ido-completing-read 'completing-read)
   "Function to use for library completion.")
+
+(defvar html-script-src-cache nil
+  "Caches all library names and url.")
+
 
 (defconst html-script-src-re
   "<textarea id=\"fe_text_\\(.+\\)\".*class=\"fetext\".*>\\(.+\\)</textarea>"
@@ -57,20 +62,17 @@
 
 (defconst html-script-src-haml-script-format
   "%%script{ :src => '%s', :type => 'text/javascript', :charset => 'utf-8' }"
-  "Format string for haml script tag.")
+  "Format string for HAML script tag.")
 
 (defconst html-script-src-html-script-format
   "<script src='%s' type='text/javascript' charset='utf-8'></script>"
-  "Format string for html script tag.")
-
-(defvar html-script-src-cache nil
-  "Caches all library names and url.")
+  "Format string for HTML script tag.")
 
 
 ;;;###autoload
 (defun html-script-src (arg)
-  "Inserts script tag for desired JavaScript library.
-With prefix argument, cache will be omitted."
+  "Inserts a script tag for a JavaScript library.
+With prefix argument, cache is omitted."
   (interactive "P")
   (if arg (html-script-src-clear-cache))
   (let* ((libraries (html-script-src-libraries))
@@ -78,7 +80,7 @@ With prefix argument, cache will be omitted."
     (html-script-src-insert-tag (cdr (assoc library libraries)))))
 
 (defun html-script-src-clear-cache ()
-  "Clears cache."
+  "Clears the cache."
   (setq html-script-src-cache nil))
 
 (defun html-script-src-completing-read (libraries)
@@ -86,7 +88,7 @@ With prefix argument, cache will be omitted."
   (funcall html-script-src-completion-fn "Library: " libraries nil t))
 
 (defun html-script-src-libraries ()
-  "Returns a list of all JavaScript names and URL."
+  "Returns a list of all JavaScript names and URLs."
   (or html-script-src-cache
       (let ((buffer (html-script-src-fetch)))
         (with-current-buffer buffer
@@ -106,7 +108,7 @@ With prefix argument, cache will be omitted."
     libraries))
 
 (defun html-script-src-fetch ()
-  "Fetches the HTML for the Script Src website."
+  "Fetches the HTML source for the Script Src website."
   (let ((url-request-method "GET")
         (url-request-extra-headers nil)
         (url-mime-accept-string "*/*")
