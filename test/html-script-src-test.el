@@ -17,8 +17,8 @@
 
 (ert-deftest html-script-src-tag-html-test ()
  (let ((url "URL") (major-mode 'html-mode))
-   (should (equal (html-script-src-tag url) "<script src='URL' type='text/javascript' charset='utf-8'></script>"))))
+   (should (equal (html-script-src-tag url) "<script src=\"URL\" type=\"text/javascript\" charset=\"utf-8\"></script>"))))
 
 (ert-deftest html-script-src-tag-haml-test ()
  (let ((url "URL") (major-mode 'haml-mode))
-   (should (equal (html-script-src-tag url) "%script{ :src => 'URL', :type => 'text/javascript', :charset => 'utf-8' }"))))
+   (should (equal (html-script-src-tag url) "%script{ :src => \"URL\", :type => \"text/javascript\", :charset => \"utf-8\" }"))))
