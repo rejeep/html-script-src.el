@@ -61,7 +61,7 @@
   "URL to Script Src website.")
 
 (defconst html-script-src-haml-script-format
-  "%%script{ :src => \"%s\", :type => \"text/javascript\", :charset => \"utf-8\" }"
+  "%%script{:src => \"%s\", :type => \"text/javascript\", :charset => \"utf-8\"}"
   "Format string for HAML script tag.")
 
 (defconst html-script-src-html-script-format
