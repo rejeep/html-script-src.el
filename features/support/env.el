@@ -1,6 +1,8 @@
-(let ((current-directory (file-name-directory load-file-name)))
-  (setq html-script-src-root-path (expand-file-name ".." current-directory))
-  (setq html-script-src-util-path (expand-file-name "util" html-script-src-root-path)))
+(let* ((current-directory (file-name-directory load-file-name))
+       (features-directory (expand-file-name ".." current-directory))
+       (project-directory (expand-file-name ".." features-directory)))
+  (setq html-script-src-root-path project-directory)
+  (setq html-script-src-util-path (expand-file-name "util" project-directory)))
 
 (add-to-list 'load-path html-script-src-root-path)
 (add-to-list 'load-path (expand-file-name "espuds" html-script-src-util-path))
