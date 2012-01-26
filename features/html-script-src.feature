@@ -3,12 +3,11 @@ Feature: HTML Script Src
   As an Emacs user
   I want to have a simple interface through Emacs to it
 
-  Background:
+  Background: 
     Given I am in buffer "*temp-buffer*"
     And the buffer is empty
-    
+
   # TODO: Test both HAML and HTML
-  
   # TODO: Would be nice with Cucumber Scenario outlines here...
   Scenario: Pick MooTools Framework
     When I start an action chain
@@ -22,3 +21,4 @@ Feature: HTML Script Src
       """
       <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js" type="text/javascript" charset="utf-8"></script>
       """
+
