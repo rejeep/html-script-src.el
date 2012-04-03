@@ -71,8 +71,8 @@
 
 ;;;###autoload
 (defun html-script-src (arg)
-  "Inserts a script tag for a JavaScript library.
-With prefix argument, cache is omitted."
+  "Insert a script tag for a JavaScript library. With prefix argument,
+cache is omitted."
   (interactive "P")
   (if arg (html-script-src-clear-cache))
   (let* ((libraries (html-script-src-libraries))
@@ -84,11 +84,11 @@ With prefix argument, cache is omitted."
   (setq html-script-src-cache nil))
 
 (defun html-script-src-completing-read (libraries)
-  "Reads a JavaScript library from LIBRARIES in the minibuffer, with completion."
+  "Read a JavaScript library from LIBRARIES in the minibuffer, with completion."
   (funcall html-script-src-completion-fn "Library: " libraries nil t))
 
 (defun html-script-src-libraries ()
-  "Returns a list of all JavaScript names and URLs."
+  "Return a list of all JavaScript names and URLs."
   (or html-script-src-cache
       (let ((buffer (html-script-src-fetch)))
         (with-current-buffer buffer
@@ -97,7 +97,7 @@ With prefix argument, cache is omitted."
   html-script-src-cache)
 
 (defun html-script-src-parse ()
-  "Parses the Script Src website and returns all JavaScript libraries as a list."
+  "Parse the Script Src website and return all JavaScript libraries as a list."
   (goto-char (point-min))
   (let ((libraries))
     (while (re-search-forward html-script-src-re nil t)
@@ -116,16 +116,16 @@ With prefix argument, cache is omitted."
     (url-retrieve-synchronously url)))
 
 (defun html-script-src-insert-tag (url)
-  "Inserts a tag for URL."
+  "Insert a tag for URL."
   (insert (html-script-src-tag url)))
 
 (defun html-script-src-tag (url)
-  "Returns a formatted tag string with URL."
+  "Return a formatted tag string with URL."
   (let ((format (html-script-src-tag-format)))
     (format format url)))
 
 (defun html-script-src-tag-format ()
-  "Returns tag format depending on mode."
+  "Return tag format depending on mode."
   (if (eq major-mode 'haml-mode)
       html-script-src-haml-script-format
     html-script-src-html-script-format))
