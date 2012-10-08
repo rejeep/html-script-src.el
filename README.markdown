@@ -21,16 +21,16 @@ To fetch the available script tags:
 For more information, see comments in `html-script-src.el`.
 
 ## Contribution
-Contribution is much welcome! HTML script src is tested using
-[Ecukes](http://ecukes.info). When Adding New Features, please write
+Contribution is much welcome! Html script src is tested using
+[Ecukes](http://ecukes.info). When adding new features, please write
 tests for them!
 
-To fetch Ecukes:
+Install [carton](https://github.com/rejeep/carton) if you haven't
+already, then:
 
     $ cd /path/to/html-script-src
-    $ git submodule init
-    $ git submodule update
-    
-Run the tests with:
+    $ carton
 
-    $ ./util/ecukes/ecukes features
+Run all tests with:
+
+    $ make
