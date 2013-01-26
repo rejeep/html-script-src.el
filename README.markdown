@@ -6,6 +6,7 @@ from <http://scriptsrc.net/>.
 This is an Emacs clone of 
 [Dr. Nic's bundle for TextMate](http://github.com/drnic/html-script-src.tmbundle).
 
+[<img src="http://img.youtube.com/vi/Def4DPmZf2k/0.jpg">](https://www.youtube.com/watch?v=Def4DPmZf2k)
 
 ## Installation
 I recommend installing via ELPA, but manual installation is simple as well:
