@@ -1,4 +1,4 @@
-# HTML Script Src
+# HTML Script Src [![Build Status](https://api.travis-ci.org/rejeep/html-script-src.png?branch=master)](http://travis-ci.org/rejeep/html-script-src)
 HTML Script Src is an Emacs plugin that inserts a script tag for HTML
 and HAML documents with a URL to a given JavaScript framework, taken
 from <http://scriptsrc.net/>.
